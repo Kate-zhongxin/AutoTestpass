@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block page_title %}Test Results{% endblock %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <!--<div class="col-sm-3 col-md-2 sidebar">-->
+                <!--<ul class="nav nav-sidebar">-->
+                    <!--<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>-->
+                    <!--<li><a href="#">1. Script Creator</a></li>-->
+                    <!--<li><a href="#">2. Result Reviewer</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <div class="col-md-2 sidebar">
+                {% block sidebar %}
+                    <div class="panel panel-primary">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">Actions:</div>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></td>
+                                    </tr>
+                                    <tr class="disabled" title="Create test scripts without coding. Manual testers can use this function to create test script.">
+                                        <td>Create Test Cases</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/?action_createPageObjects={{name_project}}">Create Page Objects</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="/?action_createTestData={{name_project}}">Create Test Data Objects</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="disabled">Review Results</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="disabled">Package for DevicePass</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                {% endblock %}
+                {% block no_result %}
+                    {% if list_no_result.__len__() > 0 %}
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">In running or just pending</div>
+                            <ul class="list-group" style="font-size: 8px">
+                                {% for job_name in list_no_result %}
+                                    <li class="list-group-item">{{job_name.keys()[0]}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+            </div>
+            <div class="col-md-10 main">
+                {% block right_content %}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <span>Current Project: <u>{{_InitFwk.name_project}}</u></span>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="div_newProject">
+                            <!--<div id="div_newProject" style="display:none;">-->
+                                <form name="form_newProject"  action="" method=post>
+                                <table name="table_newProject" id="table_newProject" class="table table-striped" style="border:1px solid #f2dede; height: auto; width: 100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="alert alert-info" role="alert">1. Please input New Project Name. Note: Only letters allowed.<p>
+                                                    2. Please select a default Test type. Other Test type can be added in script.
+                                                </p>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="NewProjectName"><b>New Project Name:</b></span>
+                                                    <input type="text" name="edit_newProject" id="edit_newProject" class="form-control" placeholder="For example: WebTest" aria-describedby="NewProjectName" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" name="radioButton_testType" id="Android" value="Android" checked> Android
+                                                <input type="radio" name="radioButton_testType" id="Web" value="Web"> Web
+                                                <input type="radio" name="radioButton_testType" id="Ios" value="Ios"> Ios
+                                                <input type="radio" name="radioButton_testType" id="WinApp" value="WinApp" class="disabled" disabled="disabled"> WinApp
+                                                <input type="radio" name="radioButton_testType" id="MacApp" value="MacApp" class="disabled" disabled="disabled"> MacApp
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="#" role="button" onclick="hideShowCss('div_newProject')">Close</a>
+                                                <button class="btn btn-primary btn-sm" type="submit" data-toggle="progress" data-trigger="click">Create</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </form>
+                            </div>
+                            <div>
+                                <table class="table table-striped" style="border:1px solid #f2dede; height: auto; width: 100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td><div class="alert alert-info" role="alert"><strong>Welcome!</strong></div></td>
+                                        </tr>
+                                        <tr>
+                                           <td>1. Click <b>Create</b> > <b>Create New Project</b> on Navigate Bar, you can create a new project.</td>
+                                        </tr>
+                                        <tr>
+                                           <td>2. Click <b>Project Name</b> dropdown on Navigate Bar, you can switch to other project and make it as default.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+             </div>
+        </div>
+    </div>
+{% endblock %}

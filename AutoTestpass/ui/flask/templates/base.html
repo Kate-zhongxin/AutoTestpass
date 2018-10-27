@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block page_head %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="/static/css/custom.css" >
+        <script src="/static/js/Chart.min.js">
+
+        </script>
+            <script type="text/javascript">
+        </script>
+        <title>{% block page_title %}{% endblock %}</title>
+        <!--<link rel="stylesheet" type="text/css" hrestatic1atic/css/bootstrap.css">-->
+    {% endblock %}
+    {% block local_head %}
+    {% endblock %}
+</head>
+
+<body>
+{% block page_navbar %}
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <a class="navbar-brand" href="#">AutoTestPass</a>
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="#">Home</a></li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Create<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li onclick="showShowCss('div_newProject');setFocus('input_newProject')"><a href="#">Create New Project</a></li>
+                          <li class="disabled"><a href="#">Create Test Cases</a></li>
+                          <li><a href="/?action_createPageObjects={{name_project}}">Create Page Objects</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" ><u>{{_InitFwk.name_project}}</u><span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          {% for name_project in _InitFwk.list_all_projects %}
+                             <li class="list-group-item"><a href="/?action_selectProject={{name_project}}">{{name_project}}</a></li>
+                          {% endfor %}
+                      </ul>
+                  </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >About<span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="www.beyondsoft.com" target="_blank">www.beyondsoft.com</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Contact(s):</li>
+                        <li><a href="#">Huang, Luffy (huangfei01@beyondsoft.com)</a></li>
+                        <li><a href="#">Jiang, Justin (jiangsikai01@beyondsoft.com)</a></li>
+                      </ul>
+                  </li>
+              </ul>
+        </div>
+      </div>
+    </nav>
+{% endblock %}
+
+<!--<button id="btn" onclick="func()">btn</button>-->
+<script>
+var layer=document.createElement("div");
+layer.id="layer";
+function func()
+{
+    var style=
+    {
+        background:"#f00",
+        position:"absolute",
+        zIndex:10,
+        width:"300px",
+        height:"200px",
+        right:"100px",
+        content: "fdfdfdf",
+        top:"100px"
+    }
+    for(var i in style)
+        layer.style[i]=style[i];
+        layer.innerHTML="sdsadasdsa"
+    if(document.getElementById("layer")==null)
+    {
+        document.body.appendChild(layer);
+        layer.style.display = "none"
+        <!--setTimeout("document.body.removeChild(layer)",5000)-->
+        <!--$("#layer").click(function(){-->
+          <!--$("#layer").fadeIn(3000);-->
+        <!--});-->
+        $("#layer").fadeIn(3000);
+        $("#layer").fadeOut(3000);
+    }
+}
+jQuery(function($){
+                $("#xxxx").html($("<div>内容</div>").fadeIn(3000));
+            });
+</script>
+{% if errorMsg != "" and errorMsg != None %}
+<div id="errorMsg" class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    {{errorMsg | safe}}
+</div>
+{% endif %}
+{% if successMsg != "" and successMsg != None %}
+<div id="successMsg" class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    {{successMsg | safe}}
+</div>
+{% endif %}
+<!--<button onclick="showModal()">test</button>-->
+<!--<button class="btn btn-primary btn-lg" data-toggle="modal"-->
+   <!--data-target="#myModal">-->
+<!--</button>-->
+<!--（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+   aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close"
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+               title
+            </h4>
+         </div>
+         <div class="modal-body">
+            <span id='num'></span>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+               data-dismiss="modal">Close
+            </button>
+            <button type="button" class="btn btn-primary">
+               Save
+            </button>
+         </div>
+      </div><!-- /.modal-content -->
+   </div>
+</div><!-- /.modal -->
+{% block content %}
+
+{% endblock %}
+
+{% block jslibs %}
+  <!-- <script type=text/javascript>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>-->
+
+  <script src="/static/js/jquery-3.1.1.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/configure.js"></script>
+  <script src="/static/js/custom.js"></script>
+  <script src="/static/js/main.js"></script>
+{% endblock %}
+{% block localjs %}
+{% endblock %}
+</body>
+</html>
